@@ -7,7 +7,6 @@ def clean_data(pokemones):
     pokemones = pokemones.fillna({'Tipo 2': "No posee"})
     return pokemones
 pokemones = pd.read_csv(r'c:\Users\X-40845\Desktop\pokemon_primera_gen.csv')
-
 pokemones_clean = clean_data(pokemones.copy())
 pokemones_clean.head()
 
