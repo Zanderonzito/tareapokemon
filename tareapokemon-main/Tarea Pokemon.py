@@ -56,9 +56,16 @@ def Saludpokemon(pk):
     print("El rango Puntos de salud de los pokemons es de:",Rango)
     print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion))
 
+#- Crea una columna con el poder total de cada pokemon y ordena el dataframe de mayor a menor a partir del poder total. 
+def nueva_columna (datos):
+    datos["poder_total"] = datos["Ataque"] + datos["Defensa"] + datos["Velocidad"] + datos["PS"]
+    Data_frame_ordenada = datos.sort_values(by = "poder_total", ascending = False)
+
+
 #muestra los datos para luego agregar a un menu
 print (Estadisticas(pk))
 print (MayoryMenor(pk))
 print(Dostipos(pk))
 print(Saludpokemon(pk))
+print(nueva_columna(pk))
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
