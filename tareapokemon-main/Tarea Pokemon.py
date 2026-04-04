@@ -1,6 +1,8 @@
 import pandas as pd
+import matplotlib.pyplot as plt  #NOTA: SI NO LOS DEJA CORRER EL MATPLOTLIB Y SEABORN
+import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccionar interprete 3.11.X
 
-# !!! FAVOR PODER FILLEAR MISSING VALUES EN DATA WRANGLER EN SUS PC´S, A MI NO ME DEJA HACERLO :(
+#AL TERMINAR LOS EJERCICIOS MEJOR HAGAMOS UN MENU GLOBAL?
 
 #1. Lectura de datos
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
@@ -81,3 +83,43 @@ print(Saludpokemon(pk))
 print(nueva_columna(pk))
 Agrupamiento(pk)
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
+
+#4. Visualización de datos
+#---------------------------------
+#- Haz un histograma de los valores de ataque.
+def diagrama_histograma(pk):
+    plt.figure(figsize=(8, 5))
+    plt.hist(pk["Ataque"], bins=20, color="steelblue", edgecolor="black")
+    plt.title("Distribución del Ataque")
+    plt.xlabel("Ataque")
+    plt.ylabel("Frecuencia")
+    plt.tight_layout()
+    plt.show()
+
+#- Realiza un gráfico de dispersión entre ataque y velocidad.
+def diagrama_dispersion(pk):
+    plt.figure(figsize=(8, 5))
+    plt.scatter(pk["Ataque"], pk["Velocidad"], color="coral", edgecolors="black", alpha=0.7)
+    plt.title("Ataque vs Velocidad")
+    plt.xlabel("Ataque")
+    plt.ylabel("Velocidad")
+    plt.tight_layout()
+    plt.show()
+
+#- Haz un boxplot de los PS por tipo principal (Tipo 1).
+def diagrama_boxplot(pk):
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(data=pk, x="Tipo 1", y="PS")
+    plt.title("PS por Tipo Principal")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+#- Grafica la distribución de la defensa usando un diagrama de violín.
+def diagrama_violin(pk):
+    plt.figure(figsize=(12, 6))
+    sns.violinplot(data=pk, x="Tipo 1", y="Defensa")
+    plt.title("Distribución de Defensa por Tipo")
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
