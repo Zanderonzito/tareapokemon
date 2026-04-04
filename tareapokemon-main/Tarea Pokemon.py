@@ -61,6 +61,17 @@ def nueva_columna (datos):
     datos["poder_total"] = datos["Ataque"] + datos["Defensa"] + datos["Velocidad"] + datos["PS"]
     Data_frame_ordenada = datos.sort_values(by = "poder_total", ascending = False)
 
+def Agrupamiento(datos):
+    promedio = datos.groupby(by = "Tipo 1")["Ataque"].mean()
+    mediana = datos.groupby(by = "Tipo 1")["Ataque"].median()
+    ds = datos.groupby(by = "Tipo 1")["Ataque"].std()
+    print("\nPromedio:")    
+    print(round(promedio, 2))
+    print("\nMediana:")
+    print(mediana)
+    print("\nDesviacion estandar:")
+    print(round(ds, 2))
+
 
 #muestra los datos para luego agregar a un menu
 print (Estadisticas(pk))
@@ -68,4 +79,5 @@ print (MayoryMenor(pk))
 print(Dostipos(pk))
 print(Saludpokemon(pk))
 print(nueva_columna(pk))
+Agrupamiento(pk)
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
