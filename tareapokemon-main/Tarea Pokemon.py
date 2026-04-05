@@ -58,7 +58,10 @@ def Saludpokemon(pk):
     print("El rango Puntos de salud de los pokemons es de:",Rango)
     print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion))
 
-#- Crea una columna con el poder total de cada pokemon y ordena el dataframe de mayor a menor a partir del poder total. 
+#5.Manipulación de Datos
+#------------------------
+#- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
+#- Ordena el DataFrame por "Poder Total" de mayor a menor.
 def nueva_columna (datos):
     datos["poder_total"] = datos["Ataque"] + datos["Defensa"] + datos["Velocidad"] + datos["PS"]
     Data_frame_ordenada = datos.sort_values(by = "poder_total", ascending = False)
@@ -123,13 +126,3 @@ def diagrama_violin(pk):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
-
-#5. Manipulación de datos      PD:SEGÚN LO QUE ENTENDI
-#------------------------
-#- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
-#- Ordena el DataFrame por "Poder Total" de mayor a menor.
-def sumar_poder_total(pk):
-    pk["Poder Total"] = pk["Ataque"] + pk["Defensa"] + pk["Velocidad"] + pk["PS"]
-    ordenado = pk.sort_values(by="Poder Total", ascending=False)
-    print(ordenado.to_string(index=False))
-    return ordenado
