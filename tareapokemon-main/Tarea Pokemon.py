@@ -123,3 +123,13 @@ def diagrama_violin(pk):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
+#5. Manipulación de datos      PD:SEGÚN LO QUE ENTENDI
+#------------------------
+#- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
+#- Ordena el DataFrame por "Poder Total" de mayor a menor.
+def sumar_poder_total(pk):
+    pk["Poder Total"] = pk["Ataque"] + pk["Defensa"] + pk["Velocidad"] + pk["PS"]
+    ordenado = pk.sort_values(by="Poder Total", ascending=False)
+    print(ordenado.to_string(index=False))
+    return ordenado
