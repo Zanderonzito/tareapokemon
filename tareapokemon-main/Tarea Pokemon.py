@@ -126,3 +126,12 @@ def diagrama_violin(pk):
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.show()
+
+#7. Análisis exploratorio (EDA)
+#------------------------------
+#- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
+def tipos_ataque_defensa(pk):
+    print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")
+    resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS Y CALCULO DE PROMEDIO DE ATAQUE Y DEFENSA Y COMPARACIÓN DE ESTADISTICAS MÁS ALTAS QUE EL PROMEDIO
+    resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO TIPO SORT DE MAYOR A MENOR
+    print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
