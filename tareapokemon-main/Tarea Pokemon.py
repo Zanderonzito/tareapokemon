@@ -18,7 +18,9 @@ def cargar_datos():
     except FileNotFoundError:
         print("Error: El archivo csv no fue encontrado. Revisa el nombre o la ruta.")
         return None
-
+    except pd.errors.ParserError as e: #esto lo encontré en stackoverflow para poder evitar errores al leer el csv, es solo para asegurarnos, en el datawrangler vi cuestiones como repetidas xd
+        print(f"Error de análisis en el archivo CSV: {e}")
+        return None
 #2. Filtrado y selección
 #-----------------------
 #- Filtra todos los Pokémon de tipo "Fuego".
