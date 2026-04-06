@@ -108,13 +108,14 @@ def diagrama_violin(pk):
     plt.show()
 
 #5.Manipulación de Datos
-#------------------------
-#- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
-#- Ordena el DataFrame por "Poder Total" de mayor a menor.
-def nueva_columna (datos):
-    datos["poder_total"] = datos["Ataque"] + datos["Defensa"] + datos["Velocidad"] + datos["PS"]
-    Data_frame_ordenada = datos.sort_values(by = "poder_total", ascending = False)
-
+df = pk.copy()
+    df["Poder Total"] = df[["Ataque", "Defensa", "Velocidad", "PS"]].sum(axis=1)
+    tabla_ordenada = df.sort_values(by="Poder Total", ascending=False)
+    print("\n--- Top 15 Pokémon por Poder Total ---")
+    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) #CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
+#MAS SEGURO PARA NO ALTERAR EL DATASET ORIGINAL EN SI, PORQUE FUNCIONABA BIEN CON 4 COLUMNAS, PERO MEJOR LA ASEGURÉ PORQUE QUE PASARIA SI NOS TOCARÁ SUMAR MAS COLUMNAS? XD
+#NOS TOCARIA ESCRIBIR CALETA DE VECES ESO QUE ESTABA ANTES PS, ASI QUE YA CON ESTO TO TRANQUI :v 
+#///////////////////////////// 6 AGRUPAMIENTO /////////////////////////////////////
 def Agrupamiento(datos):
     promedio = datos.groupby(by = "Tipo 1")["Ataque"].mean()
     mediana = datos.groupby(by = "Tipo 1")["Ataque"].median()
