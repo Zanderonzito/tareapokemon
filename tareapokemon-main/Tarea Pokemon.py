@@ -45,10 +45,9 @@ def Estadisticas(pk):
     promedio = pk["Ataque"].mean()
     mediana = pk["Ataque"].median()
     moda = pk["Ataque"].mode()[0]
-
-    print("Promedio: ",round(promedio))
-    print("Mediana: ",mediana)
-    print("Moda: ",moda)
+    print(f"\nPromedio de Ataque: {round(promedio, 1)}") #chiquillos puse el 1 mas que todo para que no nos muestre tanto decimal y solo 1, asi no se nos buguea o algo, quizas pq mi pc está medio mala, como que se veia raro xd
+    print(f"Mediana de Ataque: {mediana}")
+    print(f"Moda de Ataque: {moda}")
 
 #- ¿Cuál es el Pokémon con mayor defensa? ¿Y el de menor velocidad?
 def MayoryMenor(pk):
