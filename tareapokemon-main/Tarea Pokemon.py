@@ -37,7 +37,6 @@ def filtrar_pokemon_fuego(pk):
 pk_fuego = filtrar_pokemon_fuego(pk)
 print(pk_fuego)
 
-
 #3. Estadística descriptiva básica
 #---------------------------------
 #- Calcula el promedio, la mediana y la moda del ataque de todos los Pokémon.
@@ -68,6 +67,46 @@ def Saludpokemon(pk):
     printf(f"\nEl rango de Puntos de Salud (PS) es de: {Rango}")
     print(f"La desviación estándar de los PS es de: {round(Desviacion, 2)}") #aqui solamente puse lo del 2 para lo del redondeo y que no pase de los dos decimales, tipo pa que no se muestren muchos decimales y ya
 
+#4. Visualización de datos
+#---------------------------------
+#- Haz un histograma de los valores de ataque.
+def diagrama_histograma(pk):
+    plt.figure(figsize=(8, 5))
+    plt.hist(pk["Ataque"], bins=20, color="steelblue", edgecolor="black")
+    plt.title("Distribución del Ataque")
+    plt.xlabel("Ataque")
+    plt.ylabel("Frecuencia")
+    plt.tight_layout()
+    plt.show()
+
+#- Realiza un gráfico de dispersión entre ataque y velocidad.
+def diagrama_dispersion(pk):
+    plt.figure(figsize=(8, 5))
+    plt.scatter(pk["Ataque"], pk["Velocidad"], color="coral", edgecolors="black", alpha=0.7)
+    plt.title("Ataque vs Velocidad")
+    plt.xlabel("Ataque")
+    plt.ylabel("Velocidad")
+    plt.tight_layout()
+    plt.show()
+
+#- Haz un boxplot de los PS por tipo principal (Tipo 1).
+def diagrama_boxplot(pk):
+    plt.figure(figsize=(12, 6))
+    sns.boxplot(data=pk, x="Tipo 1", y="PS")
+    plt.title('Boxplot de Puntos de Salud por Tipo Principal (Tipo 1)')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
+#- Grafica la distribución de la defensa usando un diagrama de violín.
+def diagrama_violin(pk):
+    plt.figure(figsize=(12, 6))
+    sns.violinplot(data=pk, x="Tipo 1", y="Defensa")
+    plt.title('Diagrama de Violín de la Defensa por Tipo Principal')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
+
 #5.Manipulación de Datos
 #------------------------
 #- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
@@ -96,47 +135,6 @@ print(Saludpokemon(pk))
 print(nueva_columna(pk))
 Agrupamiento(pk)
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
-
-#4. Visualización de datos
-#---------------------------------
-#- Haz un histograma de los valores de ataque.
-def diagrama_histograma(pk):
-    plt.figure(figsize=(8, 5))
-    plt.hist(pk["Ataque"], bins=20, color="steelblue", edgecolor="black")
-    plt.title("Distribución del Ataque")
-    plt.xlabel("Ataque")
-    plt.ylabel("Frecuencia")
-    plt.tight_layout()
-    plt.show()
-
-#- Realiza un gráfico de dispersión entre ataque y velocidad.
-def diagrama_dispersion(pk):
-    plt.figure(figsize=(8, 5))
-    plt.scatter(pk["Ataque"], pk["Velocidad"], color="coral", edgecolors="black", alpha=0.7)
-    plt.title("Ataque vs Velocidad")
-    plt.xlabel("Ataque")
-    plt.ylabel("Velocidad")
-    plt.tight_layout()
-    plt.show()
-
-#- Haz un boxplot de los PS por tipo principal (Tipo 1).
-def diagrama_boxplot(pk):
-    plt.figure(figsize=(12, 6))
-    sns.boxplot(data=pk, x="Tipo 1", y="PS")
-    plt.title("PS por Tipo Principal")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.show()
-
-#- Grafica la distribución de la defensa usando un diagrama de violín.
-def diagrama_violin(pk):
-    plt.figure(figsize=(12, 6))
-    sns.violinplot(data=pk, x="Tipo 1", y="Defensa")
-    plt.title("Distribución de Defensa por Tipo")
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.show()
-
 #7. Análisis exploratorio (EDA)
 #------------------------------
 #- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
