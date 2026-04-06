@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt  #NOTA: SI NO LOS DEJA CORRER EL MATPLOTLIB Y SEABORN
 import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccionar interprete 3.11.X
 
-#AL TERMINAR LOS EJERCICIOS MEJOR HAGAMOS UN MENU GLOBAL?
+#AL TERMINAR LOS EJERCICIOS MEJOR HAGAMOS UN MENU GLOBAL? SI HAGAMOS UN MENU GLOBAL PARA QUE NO SE CORRA TODO AL TIRO
 
 #1. Lectura de datos
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
@@ -12,7 +12,12 @@ def cargar_datos():
         if pk.empty:
             print("Error: El archivo csv está vacío.")
             return None
-
+ #Aquí más todo estoy como llenando del tipo 2 para evitar errores cuando esten los conteos xd
+        pk["Tipo 2"] = pk["Tipo 2"].fillna("No posee")
+        return pk
+    except FileNotFoundError:
+        print("Error: El archivo csv no fue encontrado. Revisa el nombre o la ruta.")
+        return None
 
 #2. Filtrado y selección
 #-----------------------
