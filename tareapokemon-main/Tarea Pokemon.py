@@ -115,17 +115,34 @@ df = pk.copy()
     print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) #CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
 #MAS SEGURO PARA NO ALTERAR EL DATASET ORIGINAL EN SI, PORQUE FUNCIONABA BIEN CON 4 COLUMNAS, PERO MEJOR LA ASEGURÉ PORQUE QUE PASARIA SI NOS TOCARÁ SUMAR MAS COLUMNAS? XD
 #NOS TOCARIA ESCRIBIR CALETA DE VECES ESO QUE ESTABA ANTES PS, ASI QUE YA CON ESTO TO TRANQUI :v 
-#///////////////////////////// 6 AGRUPAMIENTO /////////////////////////////////////
-def Agrupamiento(datos):
-    promedio = datos.groupby(by = "Tipo 1")["Ataque"].mean()
-    mediana = datos.groupby(by = "Tipo 1")["Ataque"].median()
-    ds = datos.groupby(by = "Tipo 1")["Ataque"].std()
-    print("\nPromedio:")    
-    print(round(promedio, 2))
-    print("\nMediana:")
-    print(mediana)
-    print("\nDesviacion estandar:")
-    print(round(ds, 2))
+#///////////////////////////// 6 AGRUPAMIENTO Y ANALISIS POR GRUPO  /////////////////////////////////////
+def estadisticas_ataque_por_tipo(pk):
+    promedio = pk.groupby("Tipo 1")["Ataque"].mean()
+    mediana = pk.groupby("Tipo 1")["Ataque"].median()
+    ds = pk.groupby("Tipo 1")["Ataque"].std()
+    
+    df_agrupado = pd.DataFrame({"Promedio": round(promedio, 2), "Mediana": mediana, "Desviación Est.": round(ds, 2)})
+    print("\n--- Estadísticas de Ataque por Tipo 1 ---")
+    print(df_agrupado.to_string())
+
+def mayor_promedio_velocidad(pk):
+    promedios = pk.groupby('Tipo 1')['Velocidad'].mean()
+    tipo_mayor = promedios.idxmax()
+    valor_mayor = promedios.max()
+    print(f"\nEl tipo principal con mayor promedio de velocidad es: {tipo_mayor}")
+    print(f"Con un promedio de: {round(valor_mayor, 2)}")
+
+def pokemon_mayor_menor_ps_por_tipo(pk):
+    idx_mayor = pk.groupby('Tipo 1')['PS'].idxmax()
+    idx_menor = pk.groupby('Tipo 1')['PS'].idxmin()
+    
+    mayor_ps = pk.loc[idx_mayor, ['Tipo 1', 'Nombre', 'PS']]
+    menor_ps = pk.loc[idx_menor, ['Tipo 1', 'Nombre', 'PS']]
+    
+    print("\n[ MAYOR PS POR TIPO ]")
+    print(mayor_ps.to_string(index=False))
+    print("\n[ MENOR PS POR TIPO ]")
+    print(menor_ps.to_string(index=False))
 
 
 #muestra los datos para luego agregar a un menu
@@ -139,8 +156,43 @@ Agrupamiento(pk)
 #7. Análisis exploratorio (EDA)
 #------------------------------
 #- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
+#def tipos_ataque_defensa(pk):
+ #   print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
+  #  resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
+   #resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
+    #print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
 def tipos_ataque_defensa(pk):
-    print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
-    resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
-    resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
-    print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
+    ataque_promedio = pk.groupby('Tipo 1')['Ataque'].mean().round(1)
+    defensa_promedio = pk.groupby('Tipo 1')['Defensa'].mean().round(1)
+    
+    print("\n--- Promedio de Ataque por Tipo 1 (Descendente) ---")
+    print(ataque_promedio.sort_values(ascending=False).to_string())
+    print("\n--- Promedio de Defensa por Tipo 1 (Descendente) ---")
+    print(defensa_promedio.sort_values(ascending=False).to_string())
+
+def correlacion_ataque_velocidad(pk):
+    correlacion = pk['Ataque'].corr(pk['Velocidad'])
+    print(f"\nEl coeficiente de correlación entre Ataque y Velocidad es: {round(correlacion, 3)}")
+    if correlacion > 0:
+        print("Interpretación: Existe una correlación positiva. A mayor ataque, suele haber mayor velocidad.")
+
+def dispersion_ps_por_tipo(pk):
+    desviacion = pk.groupby('Tipo 1')['PS'].std()
+    print("\n--- Dispersión (Desviación Estándar) de PS por Tipo 1 ---")
+    print(round(desviacion.sort_values(ascending=False), 2).to_string())
+
+def boxplot_outliers(pk):
+    plt.figure(figsize=(12, 6))
+    
+    plt.subplot(1, 2, 1)
+    sns.boxplot(y=pk['Ataque'], color='lightcoral')
+    plt.title('Identificación de Outliers: Ataque')
+    plt.ylabel('Valor de Ataque')
+    
+    plt.subplot(1, 2, 2)
+    sns.boxplot(y=pk['PS'], color='lightgreen')
+    plt.title('Identificación de Outliers: PS')
+    plt.ylabel('Puntos de Salud (PS)')
+    
+    plt.tight_layout()
+    plt.show() # CHICOS DE MOMENTO LO DEJARÉ HASTA AHI, FALTARIA COMPLETAR EL MENU, LA INTERPRETACION DE RESULTADOS PS 
