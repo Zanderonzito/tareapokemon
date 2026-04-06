@@ -53,8 +53,8 @@ def Estadisticas(pk):
 def MayoryMenor(pk):
     Mayordefensa = pk.loc[pk["Defensa"].idxmax()]
     Menorvelocidad = pk.loc[pk["Velocidad"].idxmin()]
-    print("El pokemon com mas defensa es: ",Mayordefensa["Nombre"],"con un total de:",Mayordefensa["Defensa"])
-    print("El pokemon con menor velocidad es:",Menorvelocidad["Nombre"],"con un total de:",Menorvelocidad["Velocidad"])
+    print(f"\nEl pokemon con más defensa es: {Mayordefensa['Nombre']} (Total: {Mayordefensa['Defensa']})")
+    print(f"El pokemon con menor velocidad es: {Menorvelocidad['Nombre']} (Total: {Menorvelocidad['Velocidad']})")
 
 #- ¿Cuántos Pokémon tienen dos tipos?
 def Dostipos(pk):
