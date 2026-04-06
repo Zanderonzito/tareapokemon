@@ -6,9 +6,12 @@ import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccion
 
 #1. Lectura de datos
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
-file = "pokemon_primera_gen_datos_limpios.csv"
-pk = pd.read_csv(file)
-pk.head()
+def cargar_datos():
+    try: file = "pokemon_primera_gen.csv"
+        pk = pd.read_csv(file)
+        if pk.empty:
+            print("Error: El archivo csv está vacío.")
+            return None
 
 
 #2. Filtrado y selección
