@@ -29,8 +29,9 @@ def cargar_datos():
 
 def filtrar_pokemon_fuego(pk):
     Fuego = pk[pk["Tipo 1"] == "Fuego"]
-    filtrado = Fuego[["Nombre","Tipo 1","Tipo 2","Ataque","Velocidad"]]
-    return filtrado
+    filtrado = Fuego[["Nombre", "Tipo 1", "Tipo 2", "Ataque", "Velocidad"]]
+    print("\n--- Pokémon de Tipo Fuego ---")
+    print(filtrado.to_string(index=False)) #chiqullos aquí le añadí solo el filtrado to string mas que todo para forzar al python a convertir en texto puro lo que suelta, es que a veces cuando lo corria muchas veces me salian algunas cosas con ..... y ps no entendia xd
 
 #Mostrar datos para luego agregar a un menu
 pk_fuego = filtrar_pokemon_fuego(pk)
