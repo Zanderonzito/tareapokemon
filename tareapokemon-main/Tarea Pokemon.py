@@ -65,8 +65,8 @@ def Dostipos(pk):
 def Saludpokemon(pk):
     Rango = pk["PS"].max() - pk["PS"].min()
     Desviacion = pk["PS"].std()
-    print("El rango Puntos de salud de los pokemons es de:",Rango)
-    print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion))
+    printf(f"\nEl rango de Puntos de Salud (PS) es de: {Rango}")
+    print(f"La desviación estándar de los PS es de: {round(Desviacion, 2)}") #aqui solamente puse lo del 2 para lo del redondeo y que no pase de los dos decimales, tipo pa que no se muestren muchos decimales y ya
 
 #5.Manipulación de Datos
 #------------------------
