@@ -243,7 +243,11 @@ def interpretacion(pk):
     conclusion = pk.groupby("Tipo 1")[["Ataque", "Defensa", "Velocidad", "PS"]].mean()
     conclusion["DIFERENCIA"] = abs(conclusion["Ataque"]- conclusion["Defensa"])
     balanceado = conclusion["DIFERENCIA"].idxmin()
+    especializado = conclusion["DIFERENCIA"].idxmax()
     print("TIPO MÁS BALANCEADO:",balanceado)
     print("PROMEDIO ATAQUE:",round(conclusion.loc[balanceado,"Ataque"],2))
     print("PROMEDIO DEFENSA:",round(conclusion.loc[balanceado,"Defensa"],2))
+    print("\nTIPO MÁS ESPECIALIZADO:",especializado)
+    print("PROMEDIO ATAQUE:",round(conclusion.loc[especializado,"Ataque"],2))
+    print("PROMEDIO DEFENSA:",round(conclusion.loc[especializado,"Defensa"],2))    
 
