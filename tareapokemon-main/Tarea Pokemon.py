@@ -34,11 +34,7 @@ def filtrar_pokemon_fuego(pk):
     Fuego = pk[pk["Tipo 1"] == "Fuego"]
     filtrado = Fuego[["Nombre","Tipo 1","Tipo 2","Ataque","Velocidad"]]
     return filtrado
-
-#Mostrar datos para luego agregar a un menu
 pk_fuego = filtrar_pokemon_fuego(pk)
-print(pk_fuego)
-
 
 #3. Estadística descriptiva básica
 #---------------------------------
@@ -48,7 +44,7 @@ def Estadisticas(pk):
     mediana = pk["Ataque"].median()
     moda = pk["Ataque"].mode()[0]
 
-    print("Promedio: ",round(promedio),2)
+    print("\nPromedio: ",round(promedio),2)
     print("Mediana: ",mediana)
     print("Moda: ",moda)
 
@@ -70,7 +66,7 @@ def Saludpokemon(pk):
     Desviacion = pk["PS"].std()
 
     print("El rango Puntos de salud de los pokemons es de:",Rango)
-    print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion),2)
+    print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion,2))
 
 #4. Visualización de datos
 #---------------------------------
@@ -161,17 +157,6 @@ def pokemon_mayor_menor_ps_por_tipo(pk):
     print(menor_ps.to_string(index=False))
 
 
-#muestra los datos para luego agregar a un menu
-print (Estadisticas(pk))
-print (MayoryMenor(pk))
-print(Dostipos(pk))
-print(Saludpokemon(pk))
-print(nueva_columna(pk))
-print(estadisticas_ataque_por_tipo(pk))
-print(mayor_promedio_velocidad(pk))
-print(pokemon_mayor_menor_ps_por_tipo(pk))
-#El que haga el menu, que tambien haga un segundo menu para este ejercicio (3), creo que tambien para el ejercicio (4)
-
 #7. Análisis exploratorio (EDA)
 #------------------------------
 #- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
@@ -212,10 +197,12 @@ def dispersion_ps_tipo(datos):
             coeficiente = "moderadamente dispersos"
         else:
             coeficiente = "altamente dispersos"
-        print(f"{tipo}    {desviacion_estandar:.2f}    {coeficiente}")
+        print(f"{tipo:<12} {desviacion_estandar:<15.2f} {coeficiente:<25}")
 
-dispersion_ps_tipo(pk)
-
+#
+#Use el :<12, :<15 y :<25 para ordenar los datos en columnas rectas (le pregunte a la ia, porfa profe no se enoje)
+# fue por el bien visual
+#
 
 def boxplot_outliers(pk):
     plt.figure(figsize=(12, 6))
@@ -255,3 +242,166 @@ def interpretacion(pk):
     print("PROMEDIO DEFENSA:", round(conclusion.loc[especializado, "Defensa"], 2))
     print("PROMEDIO VELOCIDAD:", round(conclusion.loc[especializado, "Velocidad"], 2))
     print("PROMEDIO PS:", round(conclusion.loc[especializado, "PS"], 2))
+
+
+
+
+##############Menus#################
+
+def menuejercicio3():
+    print("\nMenu para Estadísticas descriptivas básicas (Ejercicio 3).")
+    print("1.- Estadisticas pokemons.")
+    print("2.- Pokemon con mayor defensa y con menor velocidad.")
+    print("3.- Pokemons con 2 tipos.")
+    print("4.- Rango y la desviación estándar de los PS,")
+
+    opcion2 = input("\nSeleccione una de las siguientes opciones (1-4):")
+
+    if opcion2 == "1":
+        Estadisticas(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion2 == "2":
+        MayoryMenor(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion2 == "3":
+        Dostipos(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion2 == "4":
+        Saludpokemon(pk)
+        input("\nPresiona Enter para continuar...")
+
+    else:
+        print("\nERROR ingrese una opcion valida:")
+
+
+
+def menuejercicio4():
+    print("\nMenu para Visualización de datos (ejercico 4).")
+    print("1.- histograma de los valores de ataque.")
+    print("2.- gráfico de dispersión entre ataque y velocidad.")
+    print("3.- boxplot de los PS por tipo principal (Tipo 1).")
+    print("4.- distribución de la defensa usando un diagrama de violín.")
+
+    opcion3 = input("\nSeleccione una de las siguientes opcciones (1-4):")
+
+    if opcion3 == "1":
+        diagrama_histograma(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion3 == "2":
+        diagrama_dispersion(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion3 == "3":
+        diagrama_boxplot(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion3 == "4":
+        diagrama_violin(pk)
+        input("\nPresiona Enter para continuar...")
+
+    else:
+        print("\nERROR ingrese una opcion valida:")
+
+
+def menuejercicio6():
+    print("\nMenu Agrupamiento y análisis por grupo (Ejercicio 6).")
+    print("1.- Calcula el promedio, la mediana y la desviación estándar de ataque por cada tipo principal (Tipo 1).")
+    print("2.- Tipo con el mayor promedio de velocidad.")
+    print("3.- Pokémon con mayor y menor PS por tipo unico")
+
+    opcion4 = input("\nSeleccione una de las siguientes opcciones (1-3):")
+
+    if opcion4 == "1":
+        estadisticas_ataque_por_tipo(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion4 == "2":
+        mayor_promedio_velocidad(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion4 == "3":
+        pokemon_mayor_menor_ps_por_tipo(pk)
+        input("\nPresiona Enter para continuar...")
+        
+    else:
+        print("\nERROR ingrese una opcion valida:")
+        
+
+def menuejercicio7():
+    print("\nmenu Análisis exploratorio (EDA) (ejercicio 7)")
+    print("1.- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa?")
+    print("2.- Calcular el coeficiente de correlación entre ataque y velocidad.")
+    print("3.- ¿Qué tan dispersos están los PS dentro de cada tipo? (compara la desviación estándar de PS por tipo)")
+    print("4.- Identificar posibles outliers en los valores de ataque y PS usando boxplots.")
+
+    opcion5 = input("\nSeleccione una de las siguientes opcciones (1-4):")
+
+    if opcion5 == "1":
+        tipos_ataque_defensa(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion5 == "2":
+        correlacion_ataque_velocidad(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion5 == "3":
+        dispersion_ps_tipo(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion5 == "4":
+        boxplot_outliers(pk)
+        input("\nPresiona Enter para continuar...")
+
+    else:
+        print("\nERROR ingrese una opcion valida:")
+
+
+while True :
+    print("\nMenu Principal.")
+    ######## No hago una carga de datos, por que en teoria ya estan en un archivo txt externo o eso creo
+    print("1.- Filtrado y selección (Ejercicio 2).")
+    print("2.- Estadística descriptiva básica (Ejercicio 3).")
+    print("3.- Visualización de datos (Ejercicio 4).")
+    print("4.- Manipulación de datos (Ejercicio 5),")
+    print("5.- Agrupamiento y análisis por grupo (Ejercicio 6).")
+    print("6.- Análisis exploratorio (EDA) (Ejercicio 7).")
+    print("7.- Ejercicios de interpretación (Ejercicio 8).")
+    print("8.- Cerrar el programa.")
+
+    opcion = input("\nSeleccione una opcion de las siguientes (1-8):")
+
+    if opcion == "1":
+        print("\n",pk_fuego)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion == "2":
+        menuejercicio3()
+
+    elif opcion == "3":
+        menuejercicio4()
+
+    elif opcion == "4":
+        nueva_columna(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion == "5":
+        menuejercicio6()
+
+    elif opcion == "6":
+        menuejercicio7()
+
+    elif opcion == "7":
+        interpretacion(pk)
+        input("\nPresiona Enter para continuar...")
+
+    elif opcion == "8":
+        print("Cerrando el programa.")
+        break
+
+    else:
+        print("\nERROR ingrese una opcion valida:")
+        
