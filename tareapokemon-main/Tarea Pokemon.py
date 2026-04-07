@@ -2,8 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt  #NOTA: SI NO LOS DEJA CORRER EL MATPLOTLIB Y SEABORN
 import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccionar interprete 3.11.X
 
-#AL TERMINAR LOS EJERCICIOS MEJOR HAGAMOS UN MENU GLOBAL? SI HAGAMOS UN MENU GLOBAL PARA QUE NO SE CORRA TODO AL TIRO
-
 #1. Lectura de datos
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
 def cargar_datos():
@@ -19,7 +17,7 @@ def cargar_datos():
     except FileNotFoundError:
         print("Error: El archivo csv no fue encontrado. Revisa el nombre o la ruta.")
         return None
-    except pd.errors.ParserError as e: #esto lo encontré en stackoverflow para poder evitar errores al leer el csv, es solo para asegurarnos, en el datawrangler vi cuestiones como repetidas xd
+    except pd.errors.ParserError as e:
         print("Error de análisis en el archivo CSV: (e)")
         return None
 #2. Filtrado y selección
@@ -118,9 +116,7 @@ def nueva_columna():
     df["Poder Total"] = df[["Ataque", "Defensa", "Velocidad", "PS"]].sum(axis=1)
     tabla_ordenada = df.sort_values(by="Poder Total", ascending=False)
     print("\n--- Top 15 Pokémon por Poder Total ---")
-    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) #CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
-#MAS SEGURO PARA NO ALTERAR EL DATASET ORIGINAL EN SI, PORQUE FUNCIONABA BIEN CON 4 COLUMNAS, PERO MEJOR LA ASEGURÉ PORQUE QUE PASARIA SI NOS TOCARÁ SUMAR MAS COLUMNAS? XD
-#NOS TOCARIA ESCRIBIR CALETA DE VECES ESO QUE ESTABA ANTES PS, ASI QUE YA CON ESTO TO TRANQUI :v 
+    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False))
 #///////////////////////////// 6 AGRUPAMIENTO Y ANALISIS POR GRUPO  /////////////////////////////////////
 def estadisticas_ataque_por_tipo(pk):
     promedio = pk.groupby("Tipo 1")["Ataque"].mean()
@@ -159,46 +155,10 @@ print(Saludpokemon(pk))
 print(nueva_columna(pk))
 Agrupamiento(pk)
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
-#7. Análisis exploratorio (EDA)
-#------------------------------
-#- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
-#def tipos_ataque_defensa(pk):
+7. Análisis exploratorio (EDA)
+# ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
+def tipos_ataque_defensa(pk):
  #   print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
   #  resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
    #resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
     #print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
-def tipos_ataque_defensa(pk):
-    ataque_promedio = pk.groupby('Tipo 1')['Ataque'].mean().round(1)
-    defensa_promedio = pk.groupby('Tipo 1')['Defensa'].mean().round(1)
-    
-    print("\n--- Promedio de Ataque por Tipo 1 (Descendente) ---")
-    print(ataque_promedio.sort_values(ascending=False).to_string())
-    print("\n--- Promedio de Defensa por Tipo 1 (Descendente) ---")
-    print(defensa_promedio.sort_values(ascending=False).to_string())
-
-def correlacion_ataque_velocidad(pk):
-    correlacion = pk['Ataque'].corr(pk['Velocidad'])
-    print(f"\nEl coeficiente de correlación entre Ataque y Velocidad es: {round(correlacion, 3)}")
-    if correlacion > 0:
-        print("Interpretación: Existe una correlación positiva. A mayor ataque, suele haber mayor velocidad.")
-
-def dispersion_ps_por_tipo(pk):
-    desviacion = pk.groupby('Tipo 1')['PS'].std()
-    print("\n--- Dispersión (Desviación Estándar) de PS por Tipo 1 ---")
-    print(round(desviacion.sort_values(ascending=False), 2).to_string())
-
-def boxplot_outliers(pk):
-    plt.figure(figsize=(12, 6))
-    
-    plt.subplot(1, 2, 1)
-    sns.boxplot(y=pk['Ataque'], color='lightcoral')
-    plt.title('Identificación de Outliers: Ataque')
-    plt.ylabel('Valor de Ataque')
-    
-    plt.subplot(1, 2, 2)
-    sns.boxplot(y=pk['PS'], color='lightgreen')
-    plt.title('Identificación de Outliers: PS')
-    plt.ylabel('Puntos de Salud (PS)')
-    
-    plt.tight_layout()
-    plt.show() # CHICOS DE MOMENTO LO DEJARÉ HASTA AHI, FALTARIA COMPLETAR EL MENU, LA INTERPRETACION DE RESULTADOS PS 
