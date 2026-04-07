@@ -152,13 +152,13 @@ print (Estadisticas(pk))
 print (MayoryMenor(pk))
 print(Dostipos(pk))
 print(Saludpokemon(pk))
-print(nueva_columna(pk))
-Agrupamiento(pk)
+#print(nueva_columna(pk))
+#Agrupamiento(pk)
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
-7. Análisis exploratorio (EDA)
+#7. Análisis exploratorio (EDA)
 # ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
 def tipos_ataque_defensa(pk):
- #   print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
-  #  resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
-   #resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
-    #print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
+  print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
+  resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
+  resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
+  print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
