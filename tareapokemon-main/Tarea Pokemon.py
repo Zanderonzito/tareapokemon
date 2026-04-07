@@ -8,7 +8,7 @@ import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccion
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
 def cargar_datos():
     try: 
-        file = "pokemon_primera_gen.csv"
+        file = "pokemon_primera_gen_datos_limpios.csv"
         pk = pd.read_csv(file)
         if pk.empty:
             print("Error: El archivo csv está vacío.")
@@ -20,13 +20,17 @@ def cargar_datos():
         print("Error: El archivo csv no fue encontrado. Revisa el nombre o la ruta.")
         return None
     except pd.errors.ParserError as e: #esto lo encontré en stackoverflow para poder evitar errores al leer el csv, es solo para asegurarnos, en el datawrangler vi cuestiones como repetidas xd
-        print(f"Error de análisis en el archivo CSV: {e}")
+        print("Error de análisis en el archivo CSV: (e)")
         return None
+    
+
 #2. Filtrado y selección
 #-----------------------
 #- Filtra todos los Pokémon de tipo "Fuego".
 #- Selecciona solo las columnas Nombre, Tipo 1, Ataque y Velocidad.
 #- puse el Tipo 2 como adicional por que algunos pokemons tienen segundo tipo
+
+pk = cargar_datos()
 
 def filtrar_pokemon_fuego(pk):
     Fuego = pk[pk["Tipo 1"] == "Fuego"]
@@ -111,15 +115,19 @@ def diagrama_violin(pk):
     plt.show()
 
 #5.Manipulación de Datos
-df = pk.copy()
-def nueva_columna():
+
+def nueva_columna(pk):
+    df = pk.copy()
     df["Poder Total"] = df[["Ataque", "Defensa", "Velocidad", "PS"]].sum(axis=1)
     tabla_ordenada = df.sort_values(by="Poder Total", ascending=False)
     print("\n--- Top 15 Pokémon por Poder Total ---")
-    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) #CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
+    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) 
+#CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
 #MAS SEGURO PARA NO ALTERAR EL DATASET ORIGINAL EN SI, PORQUE FUNCIONABA BIEN CON 4 COLUMNAS, PERO MEJOR LA ASEGURÉ PORQUE QUE PASARIA SI NOS TOCARÁ SUMAR MAS COLUMNAS? XD
 #NOS TOCARIA ESCRIBIR CALETA DE VECES ESO QUE ESTABA ANTES PS, ASI QUE YA CON ESTO TO TRANQUI :v 
-#///////////////////////////// 6 AGRUPAMIENTO Y ANALISIS POR GRUPO  /////////////////////////////////////
+
+
+#Ejercicio 6 agrupamiento
 def estadisticas_ataque_por_tipo(pk):
     promedio = pk.groupby("Tipo 1")["Ataque"].mean()
     mediana = pk.groupby("Tipo 1")["Ataque"].median()
@@ -155,7 +163,9 @@ print (MayoryMenor(pk))
 print(Dostipos(pk))
 print(Saludpokemon(pk))
 print(nueva_columna(pk))
-Agrupamiento(pk)
+print(estadisticas_ataque_por_tipo(pk))
+print(mayor_promedio_velocidad(pk))
+print(pokemon_mayor_menor_ps_por_tipo(pk))
 #El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
 #7. Análisis exploratorio (EDA)
 #------------------------------
