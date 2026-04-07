@@ -29,13 +29,13 @@ def cargar_datos():
 
 def filtrar_pokemon_fuego(pk):
     Fuego = pk[pk["Tipo 1"] == "Fuego"]
-    filtrado = Fuego[["Nombre", "Tipo 1", "Tipo 2", "Ataque", "Velocidad"]]
-    print("\n--- Pokémon de Tipo Fuego ---")
-    print(filtrado.to_string(index=False)) #chiqullos aquí le añadí solo el filtrado to string mas que todo para forzar al python a convertir en texto puro lo que suelta, es que a veces cuando lo corria muchas veces me salian algunas cosas con ..... y ps no entendia xd
+    filtrado = Fuego[["Nombre","Tipo 1","Tipo 2","Ataque","Velocidad"]]
+    return filtrado
 
 #Mostrar datos para luego agregar a un menu
 pk_fuego = filtrar_pokemon_fuego(pk)
 print(pk_fuego)
+
 
 #3. Estadística descriptiva básica
 #---------------------------------
@@ -44,16 +44,17 @@ def Estadisticas(pk):
     promedio = pk["Ataque"].mean()
     mediana = pk["Ataque"].median()
     moda = pk["Ataque"].mode()[0]
-    print(f"\nPromedio de Ataque: {round(promedio, 1)}") #chiquillos puse el 1 mas que todo para que no nos muestre tanto decimal y solo 1, asi no se nos buguea o algo, quizas pq mi pc está medio mala, como que se veia raro xd
-    print(f"Mediana de Ataque: {mediana}")
-    print(f"Moda de Ataque: {moda}")
+
+    print("Promedio: ",round(promedio),2)
+    print("Mediana: ",mediana)
+    print("Moda: ",moda)
 
 #- ¿Cuál es el Pokémon con mayor defensa? ¿Y el de menor velocidad?
 def MayoryMenor(pk):
     Mayordefensa = pk.loc[pk["Defensa"].idxmax()]
     Menorvelocidad = pk.loc[pk["Velocidad"].idxmin()]
-    print(f"\nEl pokemon con más defensa es: {Mayordefensa['Nombre']} (Total: {Mayordefensa['Defensa']})")
-    print(f"El pokemon con menor velocidad es: {Menorvelocidad['Nombre']} (Total: {Menorvelocidad['Velocidad']})")
+    print("El pokemon com mas defensa es: ",Mayordefensa["Nombre"],"con un total de:",Mayordefensa["Defensa"])
+    print("El pokemon con menor velocidad es:",Menorvelocidad["Nombre"],"con un total de:",Menorvelocidad["Velocidad"])
 
 #- ¿Cuántos Pokémon tienen dos tipos?
 def Dostipos(pk):
@@ -64,8 +65,8 @@ def Dostipos(pk):
 def Saludpokemon(pk):
     Rango = pk["PS"].max() - pk["PS"].min()
     Desviacion = pk["PS"].std()
-    printf(f"\nEl rango de Puntos de Salud (PS) es de: {Rango}")
-    print(f"La desviación estándar de los PS es de: {round(Desviacion, 2)}") #aqui solamente puse lo del 2 para lo del redondeo y que no pase de los dos decimales, tipo pa que no se muestren muchos decimales y ya
+    print("El rango Puntos de salud de los pokemons es de:",Rango)
+    print("La desviacion estandar de de los Puntos de salud es de:",round(Desviacion),2)
 
 #4. Visualización de datos
 #---------------------------------
