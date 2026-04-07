@@ -237,5 +237,7 @@ def boxplot_outliers(pk):
 #-------------------------------
 #- Interpreta los resultados de los gráficos y estadísticas: ¿qué conclusiones puedes sacar sobre los Pokémon de la primera generación?
 #- ¿Qué tipo de Pokémon sería "más balanceado" según las estadísticas? ¿Y el más especializado?
-
->>>>>>> f4af8a5b11c79e9e5e63f58ac3a11f8690fb424e
+def interpretacion(pk):
+    print("CONCLUSIONES GENERALES")
+    #TIPO MÁS BALANCEADO
+    resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa", "Velocidad", "PS"]].mean()
