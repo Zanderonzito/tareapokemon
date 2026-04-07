@@ -2,8 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt  #NOTA: SI NO LOS DEJA CORRER EL MATPLOTLIB Y SEABORN
 import seaborn as sns            #APRETAR CTRL + P , escribir PYTHON y seleccionar interprete 3.11.X
 
-#AL TERMINAR LOS EJERCICIOS MEJOR HAGAMOS UN MENU GLOBAL? SI HAGAMOS UN MENU GLOBAL PARA QUE NO SE CORRA TODO AL TIRO
-
 #1. Lectura de datos
 #- Carga el archivo pokemon_primera_gen.csv en un DataFrame de Pandas.
 def cargar_datos():
@@ -114,20 +112,26 @@ def diagrama_violin(pk):
     plt.tight_layout()
     plt.show()
 
-#5.Manipulación de Datos
+#5. Manipulación de datos
+#------------------------
+#- Crea una nueva columna llamada "Poder Total" que sea la suma de ataque, defensa, velocidad y PS.
+#- Ordena el DataFrame por "Poder Total" de mayor a menor.
 
 def nueva_columna(pk):
     df = pk.copy()
     df["Poder Total"] = df[["Ataque", "Defensa", "Velocidad", "PS"]].sum(axis=1)
     tabla_ordenada = df.sort_values(by="Poder Total", ascending=False)
     print("\n--- Top 15 Pokémon por Poder Total ---")
-    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False)) 
+    print(tabla_ordenada[["Nombre", "Tipo 1", "Poder Total"]].head(15).to_string(index=False))
 #CHIQUILLOS CAMBIÉ ESTO PORQUE CON ESTO CREO UNA COPIA PARA QUE SEA 
 #MAS SEGURO PARA NO ALTERAR EL DATASET ORIGINAL EN SI, PORQUE FUNCIONABA BIEN CON 4 COLUMNAS, PERO MEJOR LA ASEGURÉ PORQUE QUE PASARIA SI NOS TOCARÁ SUMAR MAS COLUMNAS? XD
 #NOS TOCARIA ESCRIBIR CALETA DE VECES ESO QUE ESTABA ANTES PS, ASI QUE YA CON ESTO TO TRANQUI :v 
 
-
-#Ejercicio 6 agrupamiento
+#6. Agrupamiento y análisis por grupo
+#-------------------------------------
+#- Calcula el promedio, la mediana y la desviación estándar de ataque por cada tipo principal (Tipo 1).
+#- ¿Qué tipo tiene el mayor promedio de velocidad?
+#- Para cada tipo principal, ¿cuál es el Pokémon con mayor y menor PS?
 def estadisticas_ataque_por_tipo(pk):
     promedio = pk.groupby("Tipo 1")["Ataque"].mean()
     mediana = pk.groupby("Tipo 1")["Ataque"].median()
@@ -166,15 +170,15 @@ print(nueva_columna(pk))
 print(estadisticas_ataque_por_tipo(pk))
 print(mayor_promedio_velocidad(pk))
 print(pokemon_mayor_menor_ps_por_tipo(pk))
-#El que haga el menu, que tambien haga un segundo menu para este ejercicio (3)
+#El que haga el menu, que tambien haga un segundo menu para este ejercicio (3), creo que tambien para el ejercicio (4)
+
 #7. Análisis exploratorio (EDA)
 #------------------------------
 #- ¿Existen tipos de Pokémon que tienden a tener mayor ataque o defensa? Justifica con estadísticas.
-#def tipos_ataque_defensa(pk):
- #   print("PROMEDIO DE ATAQUE Y DEFENSA SEPARADO EN TIPOS")            
-  #  resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa"]].mean()       #SEPARACIÓN DE TIPOS [1] , y TOMA DE PROMEDIO DE ATAQUE Y DEFENSA //AHORA SI QUE HACE POCO ME ENREDE JSJS
-   #resumen = resumen.sort_values(by="Ataque", ascending=False)        #ORDENAMIENTO DE TABLA DE MAYOR A MENOR
-    #print(round(resumen, 2).to_string())                               #REDONDEO DE 2 DECIMALES,PARA EL CASO DE NUMEROS PERIODICOS
+#- ¿Hay correlación entre ataque y velocidad? Calcula el coeficiente de correlación.
+#- ¿Qué tan dispersos están los PS dentro de cada tipo? (compara la desviación estándar de PS por tipo)
+#- Identifica posibles outliers en los valores de ataque y PS usando boxplots.
+
 def tipos_ataque_defensa(pk):
     ataque_promedio = pk.groupby('Tipo 1')['Ataque'].mean().round(1)
     defensa_promedio = pk.groupby('Tipo 1')['Defensa'].mean().round(1)
@@ -210,3 +214,9 @@ def boxplot_outliers(pk):
     
     plt.tight_layout()
     plt.show() # CHICOS DE MOMENTO LO DEJARÉ HASTA AHI, FALTARIA COMPLETAR EL MENU, LA INTERPRETACION DE RESULTADOS PS 
+
+#8. Ejercicios de interpretación
+#-------------------------------
+#- Interpreta los resultados de los gráficos y estadísticas: ¿qué conclusiones puedes sacar sobre los Pokémon de la primera generación?
+#- ¿Qué tipo de Pokémon sería "más balanceado" según las estadísticas? ¿Y el más especializado?
+
