@@ -193,11 +193,29 @@ def correlacion_ataque_velocidad(pk):
     print(f"\nEl coeficiente de correlación entre Ataque y Velocidad es: {round(correlacion, 3)}")
     if correlacion > 0:
         print("Interpretación: Existe una correlación positiva. A mayor ataque, suele haber mayor velocidad.")
-
+"""
 def dispersion_ps_por_tipo(pk):
     desviacion = pk.groupby('Tipo 1')['PS'].std()
     print("\n--- Dispersión (Desviación Estándar) de PS por Tipo 1 ---")
     print(round(desviacion.sort_values(ascending=False), 2).to_string())
+"""
+def dispersion_ps_tipo(datos):
+    ps = datos.groupby('Tipo 1')['PS'].std() 
+    alpha = datos.groupby('Tipo 1')['PS'].median()
+    coeficiente_de_variacion = ps / alpha
+    print("tipo    desviacion_estandar    dispersion")    
+    for tipo in coeficiente_de_variacion.index:
+        desviacion_estandar = coeficiente_de_variacion[tipo]
+        if desviacion_estandar < 0.1:
+            coeficiente = "poco dispersos"
+        elif desviacion_estandar < 0.3:
+            coeficiente = "moderadamente dispersos"
+        else:
+            coeficiente = "altamente dispersos"
+        print(f"{tipo}    {desviacion_estandar:.2f}    {coeficiente}")
+
+dispersion_ps_tipo(pk)
+
 
 def boxplot_outliers(pk):
     plt.figure(figsize=(12, 6))
