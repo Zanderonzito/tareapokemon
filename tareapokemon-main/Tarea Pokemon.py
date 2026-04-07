@@ -219,4 +219,3 @@ def boxplot_outliers(pk):
 #-------------------------------
 #- Interpreta los resultados de los gráficos y estadísticas: ¿qué conclusiones puedes sacar sobre los Pokémon de la primera generación?
 #- ¿Qué tipo de Pokémon sería "más balanceado" según las estadísticas? ¿Y el más especializado?
-
