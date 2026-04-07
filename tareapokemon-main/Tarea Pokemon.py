@@ -240,4 +240,10 @@ def boxplot_outliers(pk):
 def interpretacion(pk):
     print("CONCLUSIONES GENERALES")
     #TIPO MÁS BALANCEADO
-    resumen = pk.groupby("Tipo 1")[["Ataque", "Defensa", "Velocidad", "PS"]].mean()
+    conclusion = pk.groupby("Tipo 1")[["Ataque", "Defensa", "Velocidad", "PS"]].mean()
+    conclusion["DIFERENCIA"] = abs(conclusion["Ataque"]- conclusion["Defensa"])
+    balanceado = conclusion["DIFERENCIA"].idxmin()
+    print("TIPO MÁS BALANCEADO:",balanceado)
+    print("PROMEDIO ATAQUE:",round(conclusion.loc[balanceado,"Ataque"],2))
+    print("PROMEDIO DEFENSA:",round(conclusion.loc[balanceado,"Defensa"],2))
+    
