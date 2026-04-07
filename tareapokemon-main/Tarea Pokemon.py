@@ -239,15 +239,19 @@ def boxplot_outliers(pk):
 #- ¿Qué tipo de Pokémon sería "más balanceado" según las estadísticas? ¿Y el más especializado?
 def interpretacion(pk):
     print("CONCLUSIONES GENERALES")
-    #TIPO MÁS BALANCEADO
     conclusion = pk.groupby("Tipo 1")[["Ataque", "Defensa", "Velocidad", "PS"]].mean()
-    conclusion["DIFERENCIA"] = abs(conclusion["Ataque"]- conclusion["Defensa"])
+    conclusion["DIFERENCIA"] = conclusion.std(axis=1) #AXIS FUNCIONA PARA COMPARAR POR FILAS
     balanceado = conclusion["DIFERENCIA"].idxmin()
     especializado = conclusion["DIFERENCIA"].idxmax()
-    print("TIPO MÁS BALANCEADO:",balanceado)
-    print("PROMEDIO ATAQUE:",round(conclusion.loc[balanceado,"Ataque"],2))
-    print("PROMEDIO DEFENSA:",round(conclusion.loc[balanceado,"Defensa"],2))
-    print("\nTIPO MÁS ESPECIALIZADO:",especializado)
-    print("PROMEDIO ATAQUE:",round(conclusion.loc[especializado,"Ataque"],2))
-    print("PROMEDIO DEFENSA:",round(conclusion.loc[especializado,"Defensa"],2))    
-
+    #BALANCEADO
+    print("TIPO MÁS BALANCEADO:", balanceado)
+    print("PROMEDIO ATAQUE:", round(conclusion.loc[balanceado, "Ataque"], 2))
+    print("PROMEDIO DEFENSA:", round(conclusion.loc[balanceado, "Defensa"], 2))
+    print("PROMEDIO VELOCIDAD:", round(conclusion.loc[balanceado, "Velocidad"], 2))
+    print("PROMEDIO PS:", round(conclusion.loc[balanceado, "PS"], 2))
+    #ESPECIALIZADO
+    print("TIPO MÁS ESPECIALIZADO:", especializado)
+    print("PROMEDIO ATAQUE:", round(conclusion.loc[especializado, "Ataque"], 2))
+    print("PROMEDIO DEFENSA:", round(conclusion.loc[especializado, "Defensa"], 2))
+    print("PROMEDIO VELOCIDAD:", round(conclusion.loc[especializado, "Velocidad"], 2))
+    print("PROMEDIO PS:", round(conclusion.loc[especializado, "PS"], 2))
