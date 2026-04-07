@@ -188,6 +188,7 @@ def tipos_ataque_defensa(pk):
     print("\n--- Promedio de Defensa por Tipo 1 (Descendente) ---")
     print(defensa_promedio.sort_values(ascending=False).to_string())
 
+=======
 def correlacion_ataque_velocidad(pk):
     correlacion = pk['Ataque'].corr(pk['Velocidad'])
     print(f"\nEl coeficiente de correlación entre Ataque y Velocidad es: {round(correlacion, 3)}")
@@ -219,3 +220,5 @@ def boxplot_outliers(pk):
 #-------------------------------
 #- Interpreta los resultados de los gráficos y estadísticas: ¿qué conclusiones puedes sacar sobre los Pokémon de la primera generación?
 #- ¿Qué tipo de Pokémon sería "más balanceado" según las estadísticas? ¿Y el más especializado?
+
+>>>>>>> f4af8a5b11c79e9e5e63f58ac3a11f8690fb424e
