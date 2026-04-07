@@ -246,6 +246,4 @@ def interpretacion(pk):
     print("TIPO MÁS BALANCEADO:",balanceado)
     print("PROMEDIO ATAQUE:",round(conclusion.loc[balanceado,"Ataque"],2))
     print("PROMEDIO DEFENSA:",round(conclusion.loc[balanceado,"Defensa"],2))
-def interpretacion_correlacion(pk):
-    correlacion=pk["Ataque"].corr(pk["Velocidad"])
-    
+
