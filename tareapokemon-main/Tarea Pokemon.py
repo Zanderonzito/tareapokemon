@@ -20,19 +20,20 @@ def cargar_datos():
     except pd.errors.ParserError as e: #esto lo encontré en stackoverflow para poder evitar errores al leer el csv, es solo para asegurarnos, en el datawrangler vi cuestiones como repetidas xd
         print("Error de análisis en el archivo CSV: (e)")
         return None
-    
+#En la lectura de datos, carga el archivo de pokemon, pero hicimos otro archivo con los datos limpios en los que se aplicó el datawrangler 
+# y de esa manera tenemos un archivo limpio y ese es el que lee el codigo en este trabajo 
 
 #2. Filtrado y selección
 #-----------------------
 #- Filtra todos los Pokémon de tipo "Fuego".
 #- Selecciona solo las columnas Nombre, Tipo 1, Ataque y Velocidad.
-#- puse el Tipo 2 como adicional por que algunos pokemons tienen segundo tipo
 
-pk = cargar_datos()
+pk = cargar_datos() #funcion para cargar los datos limpios 
 
 def filtrar_pokemon_fuego(pk):
     Fuego = pk[pk["Tipo 1"] == "Fuego"]
-    filtrado = Fuego[["Nombre","Tipo 1","Tipo 2","Ataque","Velocidad"]]
+    filtrado = Fuego[["Nombre","Tipo 1","Tipo 2","Ataque","Velocidad"]] 
+    #- puse el Tipo 2 como adicional por que algunos pokemons tienen segundo tipo
     return filtrado
 pk_fuego = filtrar_pokemon_fuego(pk)
 
@@ -44,7 +45,7 @@ def Estadisticas(pk):
     mediana = pk["Ataque"].median()
     moda = pk["Ataque"].mode()[0]
 
-    print("\nPromedio: ",round(promedio),2)
+    print("\nPromedio: ",round(promedio),2) #redondea a que se muestren solo 2 decimales
     print("Mediana: ",mediana)
     print("Moda: ",moda)
 
