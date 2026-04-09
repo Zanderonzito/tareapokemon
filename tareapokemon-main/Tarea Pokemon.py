@@ -179,16 +179,11 @@ def correlacion_ataque_velocidad(pk):
     print(f"\nEl coeficiente de correlación entre Ataque y Velocidad es: {round(correlacion, 3)}")
     if correlacion > 0:
         print("Interpretación: Existe una correlación positiva. A mayor ataque, suele haber mayor velocidad.")
-"""
-def dispersion_ps_por_tipo(pk):
-    desviacion = pk.groupby('Tipo 1')['PS'].std()
-    print("\n--- Dispersión (Desviación Estándar) de PS por Tipo 1 ---")
-    print(round(desviacion.sort_values(ascending=False), 2).to_string())
-"""
-def dispersion_ps_tipo(datos):
-    ps = datos.groupby('Tipo 1')['PS'].std() 
-    alpha = datos.groupby('Tipo 1')['PS'].median()
-    coeficiente_de_variacion = ps / alpha
+
+def dispersion_ps_tipo(datos): # Sacamos el coeficiente de variacion para determinar que tan dispersos estan los PS por tipo 
+    ps = datos.groupby('Tipo 1')['PS'].std() # desviacion estandar de los ps por tipo
+    alpha = datos.groupby('Tipo 1')['PS'].mean() # media de los ps por tipo
+    coeficiente_de_variacion = ps / alpha # coeficiente de variacion 
     print("tipo    desviacion_estandar    dispersion")    
     for tipo in coeficiente_de_variacion.index:
         desviacion_estandar = coeficiente_de_variacion[tipo]
