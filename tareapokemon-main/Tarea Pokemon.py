@@ -186,14 +186,14 @@ def dispersion_ps_tipo(datos): # Sacamos el coeficiente de variacion para determ
     coeficiente_de_variacion = ps / alpha # coeficiente de variacion 
     print("tipo    desviacion_estandar    dispersion")    
     for tipo in coeficiente_de_variacion.index:
-        desviacion_estandar = coeficiente_de_variacion[tipo]
-        if desviacion_estandar < 0.1:
+        cv = coeficiente_de_variacion[tipo]
+        if cv < 0.1:
             coeficiente = "poco dispersos"
-        elif desviacion_estandar < 0.3:
+        elif cv < 0.3:
             coeficiente = "moderadamente dispersos"
         else:
             coeficiente = "altamente dispersos"
-        print(f"{tipo:<12} {desviacion_estandar:<15.2f} {coeficiente:<25}")
+        print(f"{tipo:<12} {cv:<15.2f} {coeficiente:<25}")
 
 #
 #Use el :<12, :<15 y :<25 para ordenar los datos en columnas rectas (le pregunte a la ia, porfa profe no se enoje)
